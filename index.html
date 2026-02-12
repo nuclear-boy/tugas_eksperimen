@@ -1,38 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Elastic Collision Simulation</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Elastic Collision Simulator</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+.container {
+    display: flex;
+    height: 80vh;
+}
+
+.controls {
+    width: 30%;
+    padding: 20px;
+}
+
+canvas {
+    background: #1a1a1a;
+    width: 70%;
+}
+
+input {
+    width: 100%;
+}
+
+.slider-group {
+    margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
 
-<h1>Elastic Collision (Atomic Scale)</h1>
+<h1>p = mv</h1>
 
-<div class="controls">
-    <label>Mass 1:
-        <input type="number" id="m1" value="1">
-    </label>
+<div class="container">
+    <div class="controls">
+        <div class="slider-group">
+            <label>m₁</label>
+            <input type="range" id="m1" min="1" max="20" value="5">
+        </div>
 
-    <label>Mass 2:
-        <input type="number" id="m2" value="1">
-    </label>
+        <div class="slider-group">
+            <label>m₂</label>
+            <input type="range" id="m2" min="1" max="50" value="20">
+        </div>
 
-    <label>Velocity 1:
-        <input type="number" id="v1" value="10">
-    </label>
+        <div class="slider-group">
+            <label>v₁</label>
+            <input type="range" id="v1" min="-10" max="10" value="5">
+        </div>
 
-    <label>Velocity 2:
-        <input type="number" id="v2" value="0">
-    </label>
+        <button onclick="resetSim()">Reset</button>
+    </div>
 
-    <button onclick="runSimulation()">Simulate</button>
+    <canvas id="simCanvas"></canvas>
 </div>
 
-<div class="results">
-    <p id="output"></p>
-</div>
+<p>Momentum bisa sama, tapi kalau m besar, v kecil.</p>
 
-<script src="script.js"></script>
+<script>
+const canvas = document.getElementById("simCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth * 0.7;
+canvas.height = window.innerHeight * 0.8;
+
+let m1Slider = document.getElementById("m1");
+let m2Slider = document.getElementById("m2");
+let v1Slider = document.getElementById("v1");
+
+let x1, x2, v1, v2;
+
+function resetSim() {
+    x1 = 100;
+    x2 = canvas.width - 100;
+    v1 = parseFloat(v1Slider.value);
+    v2 = 0;
+}
+
+function elasticCollision(m1, m2, v1, v2) {
+    const v1f = ((m1 - m2)/(m1 + m2))*v1 + ((2*m2)/(m1+m2))*v2;
+    const v2f = ((2*m1)/(m1+m2))*v1 + ((m2 - m1)/(m1+m2))*v2;
+    return [v1f, v2f];
+}
+
+function update() {
+    const m1 = parseFloat(m1Slider.value);
+    const m2 = parseFloat(m2Slider.value);
+
+    x1 += v1;
+    x2 += v2;
+
+    const r1 = m1 * 2;
+    const r2 = m2 * 2;
+
+    if (Math.abs(x1 - x2) < r1 + r2) {
+        [v1, v2] = elasticCollision(m1, m2, v1, v2);
+    }
+
+    draw(m1, m2, r1, r2);
+    requestAnimationFrame(update);
+}
+
+function draw(m1, m2, r1, r2) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(x1, canvas.height/2, r1, 0, Math.PI*2);
+    ctx.fillStyle = "#4da6ff";
+    ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.fillText("m1", x1-10, canvas.height/2+5);
+
+    ctx.beginPath();
+    ctx.arc(x2, canvas.height/2, r2, 0, Math.PI*2);
+    ctx.fillStyle = "#cccccc";
+    ctx.fill();
+    ctx.fillStyle = "black";
+    ctx.fillText("m2", x2-10, canvas.height/2+5);
+}
+
+resetSim();
+update();
+</script>
+
 </body>
 </html>
