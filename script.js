@@ -310,10 +310,11 @@ function pauseSimulation() {
 
     isPaused = !isPaused;
     
+    const pauseButton = document.getElementById('pauseButton');
     if (isPaused) {
-        document.querySelector('button[onclick="pauseSimulation()"]').textContent = 'Resume';
+        pauseButton.textContent = 'Resume';
     } else {
-        document.querySelector('button[onclick="pauseSimulation()"]').textContent = 'Pause';
+        pauseButton.textContent = 'Pause';
         if (startTime && elapsedTime) {
             pausedTime = performance.now() - startTime - elapsedTime * 1000;
         }
@@ -347,7 +348,7 @@ function resetSimulation() {
     document.getElementById('v1Current').textContent = '0.00';
     document.getElementById('v2Current').textContent = '0.00';
     document.getElementById('output').innerHTML = '';
-    document.querySelector('button[onclick="pauseSimulation()"]').textContent = 'Pause';
+    document.getElementById('pauseButton').textContent = 'Pause';
 }
 
 // Initialize canvas on load
