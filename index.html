@@ -27,10 +27,23 @@
     </label>
 
     <button onclick="runSimulation()">Simulate</button>
+    <button id="pauseButton" onclick="pauseSimulation()">Pause</button>
+    <button onclick="resetSimulation()">Reset</button>
+</div>
+
+<div class="canvas-container">
+    <canvas id="simulationCanvas" width="800" height="400"></canvas>
 </div>
 
 <div class="results">
     <p id="output"></p>
+    <div class="real-time-data">
+        <p>Time: <span id="time">0.00</span> s</p>
+        <p>Total KE: <span id="totalKE">0.00</span> J</p>
+        <p>Total Momentum: <span id="totalMomentum">0.00</span> kg·m/s</p>
+        <p>v1 current: <span id="v1Current">0.00</span> m/s</p>
+        <p>v2 current: <span id="v2Current">0.00</span> m/s</p>
+    </div>
 </div>
 
 <script src="script.js"></script>
