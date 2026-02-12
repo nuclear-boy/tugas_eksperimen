@@ -20,9 +20,54 @@ button {
     border: none;
     cursor: pointer;
     font-weight: bold;
+    margin: 5px;
+    border-radius: 4px;
+    color: #000;
+}
+
+button:hover {
+    background: #00a3d9;
+}
+
+button:active {
+    background: #0083b9;
+}
+
+.canvas-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+#simulationCanvas {
+    border: 2px solid #00c3ff;
+    background: #222;
+    border-radius: 5px;
 }
 
 .results {
     margin-top: 20px;
     font-size: 18px;
+}
+
+.real-time-data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.real-time-data p {
+    margin: 5px;
+    font-size: 16px;
+}
+
+.real-time-data span {
+    color: #00c3ff;
+    font-weight: bold;
 }
