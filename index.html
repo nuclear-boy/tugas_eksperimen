@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elastic Collision Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Elastic Collision (Atomic Scale)</h1>
+
+<div class="controls">
+    <label>Mass 1:
+        <input type="number" id="m1" value="1">
+    </label>
+
+    <label>Mass 2:
+        <input type="number" id="m2" value="1">
+    </label>
+
+    <label>Velocity 1:
+        <input type="number" id="v1" value="10">
+    </label>
+
+    <label>Velocity 2:
+        <input type="number" id="v2" value="0">
+    </label>
+
+    <button onclick="runSimulation()">Simulate</button>
+</div>
+
+<div class="results">
+    <p id="output"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
